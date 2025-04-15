@@ -98,6 +98,29 @@ class Meta(JSONPyWizard):
 
 
 @dataclass
+class Activity(JSONPyWizard):
+    class _(JSONPyWizard.Meta):  # noqa:N801
+        v1 = True
+
+    id: str
+    object_type: str
+    object_id: str
+    event_type: str
+    event_date: ApiDate
+    parent_project_id: str
+    # TODO: more from REST api
+
+    meta: Meta | None = None
+
+#    @property
+#    def url(self) -> str:
+#        return get_task_url(self.id, self.content)
+
+#    @property
+#    def is_completed(self) -> bool:
+#        return self.completed_at is not None
+
+@dataclass
 class Task(JSONPyWizard):
     class _(JSONPyWizard.Meta):  # noqa:N801
         v1 = True

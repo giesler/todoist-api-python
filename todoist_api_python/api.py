@@ -34,6 +34,7 @@ from todoist_api_python.models import (
     Label,
     Project,
     Section,
+    Activity,
     Task,
 )
 
@@ -129,6 +130,35 @@ class TodoistAPI:
         endpoint = get_api_url(f"{TASKS_PATH}/{task_id}")
         task_data: dict[str, Any] = get(self._session, endpoint, self._token)
         return Task.from_dict(task_data)
+
+    def get_activities(
+        self,
+        *,
+        parent_project_id: str | None = None,
+        section_id: str | None = None,
+        parent_id: str | None = None,
+    ) -> Iterator[list[Activity]]:
+        endpoint = get_api_url("activities")
+
+        params: dict[str, Any] = {}
+        if parent_project_id is not None:
+            params["parent_project_id"] = parent_project_id
+
+        params["content"] = ""
+        params["description"] = ""
+        params["project_id"] = ""
+        params["v2_object_id"] = ""
+
+        params["event_type"] = "completed"
+        
+        return ResultsPaginator(
+            self._session,
+            endpoint,
+            "results",
+            Activity.from_dict,
+            self._token,
+            params,
+        )
 
     def get_tasks(
         self,

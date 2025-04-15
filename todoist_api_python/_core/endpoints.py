@@ -11,6 +11,7 @@ PROJECT_URL = "https://app.todoist.com/app/project"
 INBOX_URL = "https://app.todoist.com/app/inbox"
 TASK_URL = "https://app.todoist.com/app/task"
 
+ACTIVITIES_PATH = "activities"
 TASKS_PATH = "tasks"
 TASKS_FILTER_PATH = "tasks/filter"
 TASKS_QUICK_ADD_PATH = "tasks/quick"
